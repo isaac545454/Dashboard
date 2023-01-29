@@ -1,7 +1,14 @@
 import React from "react";
+import GlobalStyle from "../src/styles/GlobalStyles";
+import Dashbord from "./pages/Dashboard";
 
-function App() {
-  return <div className="App"></div>;
-}
+const App: React.FC = () => {
+  return (
+    <>
+      <Dashbord />
+      <GlobalStyle />
+    </>
+  );
+};
 
 export default App;
