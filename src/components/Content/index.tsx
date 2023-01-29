@@ -2,8 +2,8 @@ import React from "react";
 
 import * as S from "./styles";
 
-const Aside: React.FC = () => {
+const Content: React.FC = () => {
   return <S.Container>aaaaaaaaaa</S.Container>;
 };
 
-export default Aside;
+export default Content;

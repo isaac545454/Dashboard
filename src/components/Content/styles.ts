@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  grid-area: AS;
-  background-color: #252a48;
+  grid-area: CT;
+  background-color: #1b1f38;
 `;
