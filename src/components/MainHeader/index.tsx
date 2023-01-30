@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import emoj from "../../utils/emoj";
 import Emoj from "../../utils/emoj";
+import Toggle from "../Toggle";
 
 import * as S from "./styles";
 
@@ -11,7 +12,7 @@ const Header: React.FC = () => {
   }, []);
   return (
     <S.Container>
-      <h1>aa</h1>
+      <Toggle />
       <S.Profile>
         <S.Welcome>Olá, {randomEmoj}</S.Welcome>
         <S.UserName>Isaac Gomes Matos</S.UserName>
