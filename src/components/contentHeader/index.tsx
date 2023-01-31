@@ -1,22 +1,21 @@
 import React from "react";
-import SelectInput from "../../components/SelectInput";
 import * as S from "./styles";
 
-const contentHeader: React.FC = () => {
-  const OptionsSelect = [
-    { value: "isaac", label: "isaac" },
-    { value: "amands", label: "amanda" },
-    { value: "napolêao", label: "napoleão" },
-  ];
+interface IProps {
+  title: string;
+  lineColor: string;
+  children: React.ReactNode;
+}
+
+const contentHeader = (props: IProps) => {
+  const { title, lineColor, children } = props;
+
   return (
     <S.Container>
-      <S.TitleContainer>
-        <h1>Titulo</h1>
+      <S.TitleContainer lineColor={lineColor}>
+        <h1>{title}</h1>
       </S.TitleContainer>
-      <S.Controllers>
-        <SelectInput options={OptionsSelect} />
-        <SelectInput options={OptionsSelect} />
-      </S.Controllers>
+      <S.Controllers>{children}</S.Controllers>
     </S.Container>
   );
 };
