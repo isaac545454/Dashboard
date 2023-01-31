@@ -6,12 +6,16 @@ import MainHeader from "../MainHeader";
 import MainAside from "../MainAside";
 import Content from "../Content";
 
-const Layout: React.FC = () => {
+interface Props {
+  children: JSX.Element;
+}
+
+const Layout = ({ children }: Props) => {
   return (
     <S.Container>
       <MainHeader />
       <MainAside />
-      <Content />
+      <Content>{children}</Content>
     </S.Container>
   );
 };
