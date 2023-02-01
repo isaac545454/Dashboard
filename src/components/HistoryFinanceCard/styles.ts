@@ -4,8 +4,8 @@ interface Icontainer {
   color: string;
 }
 
-export const Container = styled.li<Icontainer>`
-  background-color: ${(props) => props.color};
+export const Container = styled.li`
+  background-color: ${(props) => props.theme.colors.tertiary};
   border-radius: 5px;
   margin: 10px 0;
   padding: 12px 10px;

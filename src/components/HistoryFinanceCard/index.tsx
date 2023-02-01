@@ -3,7 +3,6 @@ import React from "react";
 import * as S from "./styles";
 
 export interface IProps {
-  cardColor: string;
   tagColor: string;
   title: string;
   subTitle: string;
@@ -11,10 +10,10 @@ export interface IProps {
 }
 
 const HistoryFinanceCard = (props: IProps) => {
-  const { cardColor, tagColor, amount, subTitle, title } = props;
+  const { tagColor, amount, subTitle, title } = props;
 
   return (
-    <S.Container color={cardColor}>
+    <S.Container>
       <S.Tag color={tagColor} />
       <div>
         <span>{title}</span>

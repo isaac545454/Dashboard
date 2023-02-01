@@ -22,7 +22,6 @@ export default function List() {
           <HistoryFinanceCard
             title={item.title}
             subTitle={item.subTitle}
-            cardColor={item.cardColor}
             amount={item.amount}
             tagColor={item.tagColor}
             key={index}
