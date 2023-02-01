@@ -19,3 +19,5 @@ export const Container = styled.div`
     background-color: ${(props) => props.theme.colors.tertiary};
   }
 `;
+
+export const Filter = styled.div``;
