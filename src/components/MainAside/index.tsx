@@ -7,6 +7,7 @@ import {
   MdArrowUpward,
   MdExitToApp,
 } from "react-icons/md";
+import { ROUTES } from "../../navigation/FILEROUTES";
 
 const Aside: React.FC = () => {
   return (
@@ -16,15 +17,15 @@ const Aside: React.FC = () => {
         <S.Title>Minha Carteira</S.Title>
       </S.Header>
       <S.MenuContainer>
-        <S.MenuItemLink to="">
+        <S.MenuItemLink to={ROUTES.deshboard}>
           <MdDashboard />
           Deshboard
         </S.MenuItemLink>
-        <S.MenuItemLink to="">
+        <S.MenuItemLink to={ROUTES.list("entry-balance")}>
           <MdArrowUpward />
           Entradas
         </S.MenuItemLink>
-        <S.MenuItemLink to="">
+        <S.MenuItemLink to={ROUTES.list("exit-balance")}>
           <MdArrowDownward />
           Saidas
         </S.MenuItemLink>
