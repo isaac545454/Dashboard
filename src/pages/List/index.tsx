@@ -5,20 +5,25 @@ import SelectInput from "../../components/SelectInput";
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
 import { ListOptions } from "./moch";
 import { useParams } from "react-router";
+import expenses from "../../repositories/expenses";
+import gains from "../../repositories/gains";
 
 export default function List() {
   const { type } = useParams();
-  const objContentHeader = useMemo(() => {
+  const typeNavigate = useMemo(() => {
     return type === "entry-balance"
       ? {
           title: "Entradas",
           lineColor: "#f7931b",
+          options: gains,
         }
       : {
           title: "Saidas",
           lineColor: "#e44c4e",
+          options: expenses,
         };
   }, [type]);
+
   const Months = [
     { value: 7, label: "julho" },
     { value: 8, label: "agosto" },
@@ -34,8 +39,8 @@ export default function List() {
   return (
     <S.Container>
       <ContentHeader
-        title={objContentHeader.title}
-        lineColor={objContentHeader.lineColor}
+        title={typeNavigate.title}
+        lineColor={typeNavigate.lineColor}
       >
         <SelectInput options={years} />
         <SelectInput options={Months} />
@@ -49,13 +54,13 @@ export default function List() {
         </button>
       </S.Filter>
       <S.Content>
-        {ListOptions.map((item, index) => (
+        {typeNavigate.options.map((item, index) => (
           <HistoryFinanceCard
-            title={item.title}
-            subTitle={item.subTitle}
+            title={item.description}
+            subTitle={item.date}
             amount={item.amount}
-            tagColor={item.tagColor}
             key={index}
+            tagColor={item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e"}
           />
         ))}
       </S.Content>

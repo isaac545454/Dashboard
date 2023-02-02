@@ -6,7 +6,7 @@ interface Icontainer {
 
 export const Container = styled.li`
   background-color: ${(props) => props.theme.colors.tertiary};
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 10px 0;
   padding: 12px 10px;
   display: flex;
@@ -26,6 +26,10 @@ export const Container = styled.li`
     flex-direction: column;
     justify-content: space-between;
     padding-left: 12px;
+  }
+  > div span {
+    font-weight: 500;
+    font-size: 22px;
   }
 `;
 
