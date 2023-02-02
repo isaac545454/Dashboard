@@ -1,4 +1,4 @@
-import styled, { StyledProps } from "styled-components";
+import styled from "styled-components";
 
 interface Icontainer {
   color: string;

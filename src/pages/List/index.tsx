@@ -3,10 +3,12 @@ import * as S from "./styles";
 import ContentHeader from "../../components/contentHeader";
 import SelectInput from "../../components/SelectInput";
 import HistoryFinanceCard from "../../components/HistoryFinanceCard";
-import { ListOptions } from "./moch";
 import { useParams } from "react-router";
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
+import { formatCurrency } from "../../utils/FormatCurrency";
+import { format } from "date-fns";
+//format(new Date(), "dd MMMM yyyy"),
 
 export default function List() {
   const { type } = useParams();
@@ -57,8 +59,8 @@ export default function List() {
         {typeNavigate.options.map((item, index) => (
           <HistoryFinanceCard
             title={item.description}
-            subTitle={item.date}
-            amount={item.amount}
+            subTitle={format(new Date(item.date), "dd/MM/yyyy")}
+            amount={formatCurrency(Number(item.amount))}
             key={index}
             tagColor={item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e"}
           />
