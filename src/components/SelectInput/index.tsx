@@ -1,9 +1,11 @@
-import React from "react";
+import React, { SelectHTMLAttributes } from "react";
 import * as S from "./styles";
 
-interface IProps {
+interface IProps extends SelectHTMLAttributes<HTMLSelectElement> {
   children?: React.ReactNode;
   options: IOptions[];
+  // onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  // defaultValue?: string | number;
 }
 
 type IOptions = {

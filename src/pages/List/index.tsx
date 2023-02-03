@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import * as S from "./styles";
 import ContentHeader from "../../components/contentHeader";
 import SelectInput from "../../components/SelectInput";
@@ -8,10 +8,22 @@ import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
 import { formatCurrency } from "../../utils/FormatCurrency";
 import { format } from "date-fns";
+import { log } from "console";
 //format(new Date(), "dd MMMM yyyy"),
+
+interface IDate {
+  description: string;
+  amount: string | number;
+  type?: string;
+  frequency: string;
+  date: string | Date;
+}
 
 export default function List() {
   const { type } = useParams();
+
+  const [monthSelected, setMounthSelected] = useState<string>("1");
+  const [yearSelected, setYearSelected] = useState<string>("2020");
   const typeNavigate = useMemo(() => {
     return type === "entry-balance"
       ? {
@@ -25,27 +37,80 @@ export default function List() {
           options: expenses,
         };
   }, [type]);
-
+  const [Data, setDate] = useState<IDate[]>([]);
   const Months = [
-    { value: 7, label: "julho" },
-    { value: 8, label: "agosto" },
-    { value: 9, label: "novembro" },
+    { value: 1, label: "janeiro" },
+    { value: 2, label: "fevereiro" },
+    { value: 3, label: "março" },
   ];
 
   const years = [
-    { value: 2023, label: 2023 },
-    { value: 2022, label: 2022 },
+    { value: 2020, label: 2020 },
     { value: 2021, label: 2021 },
   ];
 
+  useEffect(() => {
+    if (Data) {
+      const filterDate = typeNavigate.options.filter((item) => {
+        const date = new Date(item.date);
+        const mount = String(date.getMonth());
+        const year = String(date.getFullYear());
+        const SelectedMounth = String(monthSelected);
+        const SelectedYear = String(yearSelected);
+        console.log(mount === SelectedMounth && year === SelectedYear);
+        console.log({
+          mount,
+          SelectedMounth,
+          year,
+          SelectedYear,
+        });
+        return mount === SelectedMounth && year === SelectedYear;
+      });
+      const formatedDate: IDate[] = filterDate.map((item) => {
+        console.log(item);
+
+        return {
+          description: item.description,
+          amount: formatCurrency(Number(item.amount)),
+          frequency: item.frequency,
+          date: format(new Date(item.date), "dd/MM/yyyy"),
+          tagColor: item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e",
+        };
+      });
+      console.log(formatedDate);
+      console.log(filterDate);
+
+      setDate(formatedDate);
+    }
+  }, [monthSelected, yearSelected]);
+
+  useEffect(() => {
+    setDate(typeNavigate.options);
+    console.log(monthSelected);
+    console.log(yearSelected);
+  }, []);
   return (
     <S.Container>
       <ContentHeader
         title={typeNavigate.title}
         lineColor={typeNavigate.lineColor}
       >
-        <SelectInput options={years} />
-        <SelectInput options={Months} />
+        <SelectInput
+          options={years}
+          onChange={(e) => {
+            setYearSelected(String(e.target.value));
+            console.log(e.target.value);
+          }}
+          defaultValue={yearSelected}
+        />
+        <SelectInput
+          options={Months}
+          onChange={(e) => {
+            setMounthSelected(String(e.target.value));
+            console.log(String(e.target.value));
+          }}
+          defaultValue={monthSelected}
+        />
       </ContentHeader>
       <S.Filter>
         <button type="button" className="tag-filter tag-filter-recurrent">
@@ -56,7 +121,7 @@ export default function List() {
         </button>
       </S.Filter>
       <S.Content>
-        {typeNavigate.options.map((item, index) => (
+        {Data.map((item, index) => (
           <HistoryFinanceCard
             title={item.description}
             subTitle={format(new Date(item.date), "dd/MM/yyyy")}

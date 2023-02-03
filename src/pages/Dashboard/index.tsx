@@ -13,7 +13,7 @@ export default function Dashbord() {
   return (
     <S.Container>
       <ContentHeader title="Deshboard" lineColor="red">
-        <SelectInput options={OptionsSelect} />
+        <SelectInput options={OptionsSelect} onChange={() => {}} />
       </ContentHeader>
       <h1>Deshboard</h1>
     </S.Container>
