@@ -8,9 +8,6 @@ import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
 import { formatCurrency } from "../../utils/FormatCurrency";
 import { format } from "date-fns";
-import { log } from "console";
-import { assertModuleDeclaration } from "@babel/types";
-//format(new Date(), "dd MMMM yyyy"),
 
 interface IDate {
   description: string;
@@ -58,24 +55,10 @@ export default function List() {
         const year = String(date.getFullYear());
         const SelectedMounth = String(monthSelected);
         const SelectedYear = String(yearSelected);
-        console.log(mount === SelectedMounth && year === SelectedYear);
-        console.log({
-          mount,
-          SelectedMounth,
-          year,
-          SelectedYear,
-        });
+
         return mount === SelectedMounth && year === SelectedYear;
       });
       const formatedDate: IDate[] = filterDate.map((item) => {
-        console.log({
-          description: item.description,
-          amount: formatCurrency(Number(item.amount)),
-          frequency: item.frequency,
-          date: new Date(item.date),
-          tagColor: item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e",
-        });
-
         return {
           description: item.description,
           amount: item.amount,
@@ -84,8 +67,6 @@ export default function List() {
           tagColor: item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e",
         };
       });
-      // console.log(formatedDate);
-      // console.log(filterDate);
 
       setDate(formatedDate);
     }
@@ -104,7 +85,6 @@ export default function List() {
           options={years}
           onChange={(e) => {
             setYearSelected(String(e.target.value));
-            console.log(e.target.value);
           }}
           value={yearSelected}
         />
@@ -112,7 +92,6 @@ export default function List() {
           options={Months}
           onChange={(e) => {
             setMounthSelected(String(e.target.value));
-            console.log(String(e.target.value));
           }}
           value={monthSelected}
         />
