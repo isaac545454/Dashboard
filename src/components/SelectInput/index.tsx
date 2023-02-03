@@ -14,13 +14,13 @@ type IOptions = {
 };
 
 export default function SelectInput(props: IProps) {
-  const { options } = props;
+  const { options, ...res } = props;
   return (
     <S.Container>
-      <select>
+      <select {...res}>
         <>
           {options.map((item) => (
-            <option value={item.value} key={item.value}>
+            <option value={item.value} key={Math.random()}>
               {item.label}
             </option>
           ))}

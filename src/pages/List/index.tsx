@@ -9,6 +9,7 @@ import gains from "../../repositories/gains";
 import { formatCurrency } from "../../utils/FormatCurrency";
 import { format } from "date-fns";
 import { log } from "console";
+import { assertModuleDeclaration } from "@babel/types";
 //format(new Date(), "dd MMMM yyyy"),
 
 interface IDate {
@@ -39,9 +40,9 @@ export default function List() {
   }, [type]);
   const [Data, setDate] = useState<IDate[]>([]);
   const Months = [
-    { value: 1, label: "janeiro" },
-    { value: 2, label: "fevereiro" },
-    { value: 3, label: "março" },
+    { value: "1", label: "janeiro" },
+    { value: "2", label: "fevereiro" },
+    { value: "3", label: "março" },
   ];
 
   const years = [
@@ -53,7 +54,7 @@ export default function List() {
     if (Data) {
       const filterDate = typeNavigate.options.filter((item) => {
         const date = new Date(item.date);
-        const mount = String(date.getMonth());
+        const mount = String(date.getMonth() + 1);
         const year = String(date.getFullYear());
         const SelectedMounth = String(monthSelected);
         const SelectedYear = String(yearSelected);
@@ -67,27 +68,31 @@ export default function List() {
         return mount === SelectedMounth && year === SelectedYear;
       });
       const formatedDate: IDate[] = filterDate.map((item) => {
-        console.log(item);
-
-        return {
+        console.log({
           description: item.description,
           amount: formatCurrency(Number(item.amount)),
           frequency: item.frequency,
-          date: format(new Date(item.date), "dd/MM/yyyy"),
+          date: new Date(item.date),
+          tagColor: item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e",
+        });
+
+        return {
+          description: item.description,
+          amount: item.amount,
+          frequency: item.frequency,
+          date: item.date,
           tagColor: item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e",
         };
       });
-      console.log(formatedDate);
-      console.log(filterDate);
+      // console.log(formatedDate);
+      // console.log(filterDate);
 
       setDate(formatedDate);
     }
-  }, [monthSelected, yearSelected]);
+  }, [monthSelected, yearSelected, Data, typeNavigate.options]);
 
   useEffect(() => {
     setDate(typeNavigate.options);
-    console.log(monthSelected);
-    console.log(yearSelected);
   }, []);
   return (
     <S.Container>
@@ -101,7 +106,7 @@ export default function List() {
             setYearSelected(String(e.target.value));
             console.log(e.target.value);
           }}
-          defaultValue={yearSelected}
+          value={yearSelected}
         />
         <SelectInput
           options={Months}
@@ -109,7 +114,7 @@ export default function List() {
             setMounthSelected(String(e.target.value));
             console.log(String(e.target.value));
           }}
-          defaultValue={monthSelected}
+          value={monthSelected}
         />
       </ContentHeader>
       <S.Filter>
@@ -126,7 +131,7 @@ export default function List() {
             title={item.description}
             subTitle={format(new Date(item.date), "dd/MM/yyyy")}
             amount={formatCurrency(Number(item.amount))}
-            key={index}
+            key={Math.random()}
             tagColor={item.frequency === "recorrente" ? "#4e41f0" : "#e44c4e"}
           />
         ))}
