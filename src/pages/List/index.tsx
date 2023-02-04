@@ -19,9 +19,31 @@ interface IDate {
 
 export default function List() {
   const { type } = useParams();
-
   const [monthSelected, setMounthSelected] = useState<string>("1");
+  const [selectedFreguency, setSelectedFreguency] = useState<Array<string>>([
+    "recorrente",
+    "eventual",
+  ]);
   const [yearSelected, setYearSelected] = useState<string>("2020");
+
+  const handleFreguencyClick = (type: string) => {
+    const alreadySelected = selectedFreguency.findIndex(
+      (item) => item === type
+    );
+
+    if (alreadySelected !== -1) {
+      setSelectedFreguency(() => {
+        const filterArray = selectedFreguency.filter((item) => item !== type);
+        return filterArray;
+      });
+    } else {
+      setSelectedFreguency((old) => {
+        const newArray = [...old, type];
+        return newArray;
+      });
+    }
+  };
+
   const typeNavigate = useMemo(() => {
     return type === "entry-balance"
       ? {
@@ -36,18 +58,30 @@ export default function List() {
         };
   }, [type]);
   const [Data, setDate] = useState<IDate[]>([]);
-  const Months = [
+
+  const MonthsTotal = [
     { value: "1", label: "janeiro" },
     { value: "2", label: "fevereiro" },
     { value: "3", label: "março" },
+    { value: "4", label: "abril" },
+    { value: "5", label: "maio" },
+    { value: "6", label: "junho" },
+    { value: "7", label: "julho" },
+    { value: "8", label: "agosto" },
+    { value: "9", label: "setembro" },
+    { value: "10", label: "outubro" },
+    { value: "11", label: "novembro" },
+    { value: "12", label: "dezebro" },
   ];
 
   const years = [
     { value: 2020, label: 2020 },
     { value: 2021, label: 2021 },
+    { value: 2023, label: 2023 },
   ];
 
   useEffect(() => {
+    setDate(typeNavigate.options);
     if (Data) {
       const filterDate = typeNavigate.options.filter((item) => {
         const date = new Date(item.date);
@@ -56,7 +90,11 @@ export default function List() {
         const SelectedMounth = String(monthSelected);
         const SelectedYear = String(yearSelected);
 
-        return mount === SelectedMounth && year === SelectedYear;
+        return (
+          mount === SelectedMounth &&
+          year === SelectedYear &&
+          selectedFreguency.includes(item.frequency)
+        );
       });
       const formatedDate: IDate[] = filterDate.map((item) => {
         return {
@@ -70,11 +108,8 @@ export default function List() {
 
       setDate(formatedDate);
     }
-  }, [monthSelected, yearSelected, Data, typeNavigate.options]);
+  }, [monthSelected, yearSelected, typeNavigate.options, selectedFreguency]);
 
-  useEffect(() => {
-    setDate(typeNavigate.options);
-  }, []);
   return (
     <S.Container>
       <ContentHeader
@@ -89,7 +124,7 @@ export default function List() {
           value={yearSelected}
         />
         <SelectInput
-          options={Months}
+          options={MonthsTotal}
           onChange={(e) => {
             setMounthSelected(String(e.target.value));
           }}
@@ -97,10 +132,22 @@ export default function List() {
         />
       </ContentHeader>
       <S.Filter>
-        <button type="button" className="tag-filter tag-filter-recurrent">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-recurrent ${
+            selectedFreguency.includes("recorrente") && "tag-actived"
+          }`}
+          onClick={() => handleFreguencyClick("recorrente")}
+        >
           Recorrentes
         </button>
-        <button type="button" className="tag-filter tag-filter-eventual">
+        <button
+          type="button"
+          className={`tag-filter tag-filter-eventual ${
+            selectedFreguency.includes("eventual") && "tag-actived"
+          }`}
+          onClick={() => handleFreguencyClick("eventual")}
+        >
           Eventuais
         </button>
       </S.Filter>
