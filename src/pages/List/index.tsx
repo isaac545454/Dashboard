@@ -8,6 +8,7 @@ import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
 import { formatCurrency } from "../../utils/FormatCurrency";
 import { format } from "date-fns";
+import { MonthsTotal, years } from "./moch";
 
 interface IDate {
   description: string;
@@ -20,11 +21,11 @@ interface IDate {
 export default function List() {
   const { type } = useParams();
   const [monthSelected, setMounthSelected] = useState<string>("1");
+  const [yearSelected, setYearSelected] = useState<string>("2020");
   const [selectedFreguency, setSelectedFreguency] = useState<Array<string>>([
     "recorrente",
     "eventual",
   ]);
-  const [yearSelected, setYearSelected] = useState<string>("2020");
 
   const handleFreguencyClick = (type: string) => {
     const alreadySelected = selectedFreguency.findIndex(
@@ -59,27 +60,6 @@ export default function List() {
   }, [type]);
   const [Data, setDate] = useState<IDate[]>([]);
 
-  const MonthsTotal = [
-    { value: "1", label: "janeiro" },
-    { value: "2", label: "fevereiro" },
-    { value: "3", label: "março" },
-    { value: "4", label: "abril" },
-    { value: "5", label: "maio" },
-    { value: "6", label: "junho" },
-    { value: "7", label: "julho" },
-    { value: "8", label: "agosto" },
-    { value: "9", label: "setembro" },
-    { value: "10", label: "outubro" },
-    { value: "11", label: "novembro" },
-    { value: "12", label: "dezebro" },
-  ];
-
-  const years = [
-    { value: 2020, label: 2020 },
-    { value: 2021, label: 2021 },
-    { value: 2023, label: 2023 },
-  ];
-
   useEffect(() => {
     setDate(typeNavigate.options);
     if (Data) {
@@ -89,7 +69,6 @@ export default function List() {
         const year = String(date.getFullYear());
         const SelectedMounth = String(monthSelected);
         const SelectedYear = String(yearSelected);
-
         return (
           mount === SelectedMounth &&
           year === SelectedYear &&
