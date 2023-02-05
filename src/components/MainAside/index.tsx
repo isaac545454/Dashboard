@@ -8,8 +8,10 @@ import {
   MdExitToApp,
 } from "react-icons/md";
 import { ROUTES } from "../../navigation/FILEROUTES";
+import { useAuth } from "../../hooks/Auth";
 
 const Aside: React.FC = () => {
+  const { signOut } = useAuth();
   return (
     <S.Container>
       <S.Header>
@@ -29,7 +31,7 @@ const Aside: React.FC = () => {
           <MdArrowDownward />
           Saidas
         </S.MenuItemLink>
-        <S.MenuItemLink to="">
+        <S.MenuItemLink to="#" onClick={signOut}>
           <MdExitToApp />
           Sair
         </S.MenuItemLink>
