@@ -26,6 +26,7 @@ export default function List() {
     "recorrente",
     "eventual",
   ]);
+  const [Data, setDate] = useState<IDate[]>([]);
 
   const handleFreguencyClick = (type: string) => {
     const alreadySelected = selectedFreguency.findIndex(
@@ -58,7 +59,6 @@ export default function List() {
           options: expenses,
         };
   }, [type]);
-  const [Data, setDate] = useState<IDate[]>([]);
 
   useEffect(() => {
     setDate(typeNavigate.options);
