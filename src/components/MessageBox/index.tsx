@@ -1,7 +1,6 @@
 import React from "react";
 
 import * as S from "./styles";
-import happy from "../../assets/happy.svg";
 
 interface Props {
   title: string;
