@@ -19,7 +19,7 @@ const Aside: React.FC = () => {
         <S.Title>Minha Carteira</S.Title>
       </S.Header>
       <S.MenuContainer>
-        <S.MenuItemLink to={ROUTES.deshboard}>
+        <S.MenuItemLink to={ROUTES.login}>
           <MdDashboard />
           Deshboard
         </S.MenuItemLink>
@@ -31,7 +31,7 @@ const Aside: React.FC = () => {
           <MdArrowDownward />
           Saidas
         </S.MenuItemLink>
-        <S.MenuItemLink to="#" onClick={signOut}>
+        <S.MenuItemLink to={ROUTES.login} onClick={signOut}>
           <MdExitToApp />
           Sair
         </S.MenuItemLink>
