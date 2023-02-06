@@ -7,6 +7,7 @@ import WalletBox from "../../components/WalletBox";
 import expenses from "../../repositories/expenses";
 import gains from "../../repositories/gains";
 import MessageBox from "../../components/MessageBox";
+import PieChart from "../../components/PieChart";
 
 import happy from "../../assets/happy.svg";
 import sad from "../../assets/sad.svg";
@@ -56,7 +57,7 @@ export default function Dashbord() {
   }, [totalGains, totalExpenses]);
 
   const message = useMemo(() => {
-    return totalBalance < 0
+    return totalBalance <= 0
       ? {
           title: "Que triste",
           description: "Neste mês, você gastou mais do que deveria",
@@ -118,6 +119,7 @@ export default function Dashbord() {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChart />
       </S.Content>
     </S.Container>
   );

@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import logoImg from "../../assets/logo.svg";
 import * as S from "./styles";
 import Input from "../../components/Input";
