@@ -73,6 +73,27 @@ export default function Dashbord() {
         };
   }, [totalBalance]);
 
+  const relationsExpensesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+    const gainsPercent = (totalGains / total) * 100;
+    const expensesPercent = (totalExpenses / total) * 100;
+
+    return [
+      {
+        name: "Entradas",
+        value: totalExpenses,
+        percent: Number(gainsPercent.toFixed(1)),
+        color: "#E44C4e",
+      },
+      {
+        name: "Saidas",
+        value: totalExpenses,
+        percent: Number(expensesPercent.toFixed(1)),
+        color: "#f7931b",
+      },
+    ];
+  }, [totalGains, totalExpenses]);
+
   return (
     <S.Container>
       <ContentHeader title="Deshboard" lineColor="#4341f0">
@@ -119,7 +140,7 @@ export default function Dashbord() {
           footerText={message.footerText}
           icon={message.icon}
         />
-        <PieChart />
+        <PieChart data={relationsExpensesVersusGains} />
       </S.Content>
     </S.Container>
   );

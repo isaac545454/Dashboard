@@ -2,29 +2,44 @@ import React from "react";
 import * as S from "./styles";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-interface Props {}
+interface Props {
+  data: {
+    name: string;
+    value: number;
+    percent: number;
+    color: string;
+  }[];
+}
 
-const PieChartComponent = (props: Props) => (
+const PieChartComponent = ({ data }: Props) => (
   <S.Container>
     <S.SideLeft>
       <h2>Relação</h2>
       <S.LegendContainer>
-        <S.Legend color="#f7931b">
-          <div>95%</div>
-          <span>Entradas</span>
-        </S.Legend>
-        <S.Legend color="#e44c4e">
-          <div>5%</div>
-          <span>Saidas</span>
-        </S.Legend>
+        {data.map((item) => (
+          <S.Legend color={item.color} key={item.name}>
+            <div>{item.percent}</div>
+            <span>{item.name}</span>
+          </S.Legend>
+        ))}
       </S.LegendContainer>
     </S.SideLeft>
     <S.SideRight>
-      {/* <ResponsiveContainer>
+      <ResponsiveContainer>
         <PieChart>
-          <Pie data={[]} labelLine={false} dataKey="percent" />
+          <Pie
+            data={data}
+            dataKey="percent"
+            isAnimationActive={true}
+            cx="50%"
+            cy="50%"
+          >
+            {data.map((item) => (
+              <Cell key={item.name} fill={item.color} />
+            ))}
+          </Pie>
         </PieChart>
-      </ResponsiveContainer> */}
+      </ResponsiveContainer>
     </S.SideRight>
   </S.Container>
 );

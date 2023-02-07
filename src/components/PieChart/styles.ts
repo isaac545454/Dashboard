@@ -57,4 +57,8 @@ export const Legend = styled.li<Ilegend>`
   }
 `;
 
-export const SideRight = styled.main``;
+export const SideRight = styled.main`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+`;
