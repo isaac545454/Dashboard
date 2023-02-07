@@ -9,6 +9,7 @@ import gains from "../../repositories/gains";
 import MessageBox from "../../components/MessageBox";
 import PieChart from "../../components/PieChart";
 import HistoryBox from "../../components/HistoryBox";
+import BarChartBox from "../../components/BarChartBox";
 
 import happy from "../../assets/happy.svg";
 import sad from "../../assets/sad.svg";
@@ -150,7 +151,7 @@ export default function Dashbord() {
       .filter((item) => {
         const data = new Date(item.date);
         const year = data.getFullYear();
-        const month = data.getMonth() + 1;
+        const month = data.getMonth();
         return String(month) === monthSelected && String(year) === yearSelected;
       })
       .forEach((item) => {
@@ -167,13 +168,49 @@ export default function Dashbord() {
       {
         name: "Recorrentes",
         amount: amountRecurrent,
-        percent: Number((amountRecurrent / total) * 100).toFixed(1),
+        percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
         color: "#f7931b",
       },
       {
         name: "Eventuais",
         amount: amountEventual,
-        percent: Number((amountEventual / total) * 100).toFixed(1),
+        percent: Number(((amountEventual / total) * 100).toFixed(1)),
+        color: "#e44c4e",
+      },
+    ];
+  }, [monthSelected, yearSelected]);
+
+  const relationGainRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+    gains
+      .filter((item) => {
+        const data = new Date(item.date);
+        const year = data.getFullYear();
+        const month = data.getMonth();
+        return String(month) === monthSelected && String(year) === yearSelected;
+      })
+      .forEach((item) => {
+        if (item.frequency === "recorrente") {
+          return (amountRecurrent += Number(item.amount));
+        } else if (item.frequency === "eventual") {
+          return (amountEventual += Number(item.amount));
+        }
+      });
+
+    const total = amountRecurrent + amountEventual;
+
+    return [
+      {
+        name: "Recorrentes",
+        amount: amountRecurrent,
+        percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
+        color: "#f7931b",
+      },
+      {
+        name: "Eventuais",
+        amount: amountEventual,
+        percent: Number(((amountEventual / total) * 100).toFixed(1)),
         color: "#e44c4e",
       },
     ];
@@ -230,6 +267,14 @@ export default function Dashbord() {
           data={historyData}
           lineColorAmounrEntry="#f7931b"
           lineColorAmountOutput="#e44c4e"
+        />
+        <BarChartBox
+          data={relationGainRecurrentVersusEventual}
+          title="Entradas"
+        />
+        <BarChartBox
+          data={relationExpenseverRecurrentVersusEventual}
+          title="Saidas"
         />
       </S.Content>
     </S.Container>
