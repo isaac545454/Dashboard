@@ -143,6 +143,42 @@ export default function Dashbord() {
     });
   }, [yearSelected]);
 
+  const relationExpenseverRecurrentVersusEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+    expenses
+      .filter((item) => {
+        const data = new Date(item.date);
+        const year = data.getFullYear();
+        const month = data.getMonth() + 1;
+        return String(month) === monthSelected && String(year) === yearSelected;
+      })
+      .forEach((item) => {
+        if (item.frequency === "recorrente") {
+          return (amountRecurrent += Number(item.amount));
+        } else if (item.frequency === "eventual") {
+          return (amountEventual += Number(item.amount));
+        }
+      });
+
+    const total = amountRecurrent + amountEventual;
+
+    return [
+      {
+        name: "Recorrentes",
+        amount: amountRecurrent,
+        percent: Number((amountRecurrent / total) * 100).toFixed(1),
+        color: "#f7931b",
+      },
+      {
+        name: "Eventuais",
+        amount: amountEventual,
+        percent: Number((amountEventual / total) * 100).toFixed(1),
+        color: "#e44c4e",
+      },
+    ];
+  }, [monthSelected, yearSelected]);
+
   return (
     <S.Container>
       <ContentHeader title="Deshboard" lineColor="#4341f0">
