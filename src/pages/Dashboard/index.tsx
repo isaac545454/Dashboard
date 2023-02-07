@@ -84,13 +84,13 @@ export default function Dashbord() {
       {
         name: "Entradas",
         value: totalExpenses,
-        percent: Number(gainsPercent.toFixed(1)),
+        percent: Number(gainsPercent.toFixed(1)) || 0,
         color: "#E44C4e",
       },
       {
         name: "Saidas",
         value: totalExpenses,
-        percent: Number(expensesPercent.toFixed(1)),
+        percent: Number(expensesPercent.toFixed(1)) || 0,
         color: "#f7931b",
       },
     ];
@@ -168,13 +168,13 @@ export default function Dashbord() {
       {
         name: "Recorrentes",
         amount: amountRecurrent,
-        percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
+        percent: Number(((amountRecurrent / total) * 100).toFixed(1)) || 0,
         color: "#f7931b",
       },
       {
         name: "Eventuais",
         amount: amountEventual,
-        percent: Number(((amountEventual / total) * 100).toFixed(1)),
+        percent: Number(((amountEventual / total) * 100).toFixed(1)) || 0,
         color: "#e44c4e",
       },
     ];
@@ -204,13 +204,13 @@ export default function Dashbord() {
       {
         name: "Recorrentes",
         amount: amountRecurrent,
-        percent: Number(((amountRecurrent / total) * 100).toFixed(1)),
+        percent: Number(((amountRecurrent / total) * 100).toFixed(1)) || 0,
         color: "#f7931b",
       },
       {
         name: "Eventuais",
         amount: amountEventual,
-        percent: Number(((amountEventual / total) * 100).toFixed(1)),
+        percent: Number(((amountEventual / total) * 100).toFixed(1)) || 0,
         color: "#e44c4e",
       },
     ];
