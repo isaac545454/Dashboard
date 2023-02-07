@@ -18,3 +18,18 @@ export const years = [
   { value: 2021, label: 2021 },
   { value: 2023, label: 2023 },
 ];
+
+export const ListOfMonths = [
+  "janeiro",
+  "fevereiro",
+  "março",
+  "abril",
+  "maio",
+  "junho",
+  "julho",
+  "agosto",
+  "setembro",
+  "outubro",
+  "novembro",
+  "dezebro",
+];

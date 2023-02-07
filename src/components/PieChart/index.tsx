@@ -18,7 +18,7 @@ const PieChartComponent = ({ data }: Props) => (
       <S.LegendContainer>
         {data.map((item) => (
           <S.Legend color={item.color} key={item.name}>
-            <div>{item.percent}</div>
+            <div>{item.percent}%</div>
             <span>{item.name}</span>
           </S.Legend>
         ))}
@@ -27,13 +27,7 @@ const PieChartComponent = ({ data }: Props) => (
     <S.SideRight>
       <ResponsiveContainer>
         <PieChart>
-          <Pie
-            data={data}
-            dataKey="percent"
-            isAnimationActive={true}
-            cx="50%"
-            cy="50%"
-          >
+          <Pie data={data} dataKey="percent" isAnimationActive={true}>
             {data.map((item) => (
               <Cell key={item.name} fill={item.color} />
             ))}
