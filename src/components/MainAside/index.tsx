@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../..//assets/logo.svg";
 import * as S from "./styles";
 import {
@@ -6,15 +6,21 @@ import {
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
+  MdClose,
+  MdMenu,
 } from "react-icons/md";
 import { ROUTES } from "../../navigation/FILEROUTES";
 import { useAuth } from "../../hooks/Auth";
 
 const Aside: React.FC = () => {
   const { signOut } = useAuth();
+  const [modal, setModal] = useState<boolean>(false);
   return (
-    <S.Container>
+    <S.Container menIsOpen={modal}>
       <S.Header>
+        <S.ToggleMenu onClick={(old) => setModal(!modal)}>
+          {modal ? <MdClose /> : <MdMenu />}
+        </S.ToggleMenu>
         <S.LogoImg src={logo} alt="logo minha carteira " />
         <S.Title>Minha Carteira</S.Title>
       </S.Header>
