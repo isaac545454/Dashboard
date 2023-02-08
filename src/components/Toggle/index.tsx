@@ -1,20 +1,26 @@
 import React from "react";
 import * as S from "./styles";
 
-const Toggle: React.FC = () => {
+interface IProps {
+  labeLeft: string;
+  labelRight: string;
+  checked: boolean;
+  onChange: () => void;
+}
+
+const Toggle = (props: IProps) => {
+  const { checked, labeLeft, onChange, labelRight } = props;
   return (
     <>
       <S.Container>
-        <S.ToggleLabel>Ligth</S.ToggleLabel>
+        <S.ToggleLabel>{labeLeft}</S.ToggleLabel>
         <S.ToggleSwitch
-          checked
+          checked={checked}
           uncheckedIcon={false}
           checkedIcon={false}
-          onChange={() => {
-            console.log("aa");
-          }}
+          onChange={onChange}
         />
-        <S.ToggleLabel>Dark</S.ToggleLabel>
+        <S.ToggleLabel>{labelRight}</S.ToggleLabel>
       </S.Container>
     </>
   );
