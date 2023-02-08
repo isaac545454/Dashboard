@@ -22,6 +22,9 @@ export const Headers = styled.header`
     margin-bottom: 20px;
     padding-left: 18px;
   }
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `;
 
 export const LegendContainer = styled.ul`
@@ -34,7 +37,7 @@ export const Legend = styled.li<Ilegend>`
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  margin-right: 7px;
+  margin-left: 20px;
   align-items: center;
   > div {
     font-size: 14px;
@@ -48,9 +51,15 @@ export const Legend = styled.li<Ilegend>`
   span {
     margin-left: 5px;
   }
+  @media (max-width: 1200px) {
+    > div {
+      width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 export const CharttContainer = styled.div`
   flex: 1;
-  height: 360px;
+  height: 300px;
 `;

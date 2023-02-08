@@ -19,4 +19,8 @@ export const Container = styled.div`
   > header p {
     font-size: 18px;
   }
+
+  @media (max-width: 460px) {
+    width: 100%;
+  }
 `;

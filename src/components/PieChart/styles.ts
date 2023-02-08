@@ -12,6 +12,10 @@ export const Container = styled.div`
   color: ${(props) => props.theme.colors.white};
   border-radius: 7px;
   display: flex;
+
+  @media (max-width: 460px) {
+    width: 100%;
+  }
 `;
 
 export const SideLeft = styled.aside`
