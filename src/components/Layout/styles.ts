@@ -8,4 +8,9 @@ export const Container = styled.div`
     "AS MH"
     "AS CT";
   height: 100vh;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 100% auto;
+    grid-template-areas: "MH" "CT";
+  }
 `;
