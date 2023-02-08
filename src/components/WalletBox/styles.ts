@@ -31,6 +31,17 @@ export const Container = styled.div<IcontainerProps>`
     position: absolute;
     bottom: 10px;
   }
+
+  @media (max-width: 770px) {
+    width: 100%;
+  }
+  > span {
+    font-size: 14px;
+  }
+  > h1 {
+    word-wrap: break-word;
+    font-size: 20px;
+  }
 `;
 
 export const Count = styled.div`
