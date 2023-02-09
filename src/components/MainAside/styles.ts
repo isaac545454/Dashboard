@@ -98,7 +98,7 @@ export const ToggleMenu = styled.button`
 export const ThemeToggleFooter = styled.footer<IThemeToogleFooter>`
   display: none;
   position: absolute;
-  bottom: 50px;
+  bottom: 80px;
   left: 35px;
 
   @media (max-width: 688px) {
