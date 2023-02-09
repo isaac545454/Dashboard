@@ -1,9 +1,22 @@
-import styled from "styled-components";
+import styled, { keyframes, Keyframes } from "styled-components";
 
 interface Ilegend {
   color: string;
 }
 
+const animate = keyframes`
+ 0%{
+  transform: translateX(100px)
+ }
+ 50%{
+  opacity: 0.3
+ }
+ 100%{
+  transform: translateX(0px);
+  opacity: 1;
+ }
+
+`;
 export const Container = styled.div`
   width: 48%;
   height: 260px;
@@ -12,6 +25,7 @@ export const Container = styled.div`
   color: ${(props) => props.theme.colors.white};
   border-radius: 7px;
   display: flex;
+  animation: ${animate} 0.5s;
 
   @media (max-width: 460px) {
     width: 100%;
