@@ -5,6 +5,10 @@ interface IcontainerProps {
   menIsOpen: boolean;
 }
 
+interface IThemeToogleFooter {
+  menuIsOpen: boolean;
+}
+
 export const Container = styled.div<IcontainerProps>`
   grid-area: AS;
   background-color: ${(props) => props.theme.colors.secondary};
@@ -75,4 +79,30 @@ export const MenuItemLink = styled(Link)`
   }
 `;
 
-export const ToggleMenu = styled.button``;
+export const ToggleMenu = styled.button`
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  font-size: 22px;
+  background-color: ${(props) => props.theme.colors.warning};
+  color: ${(props) => props.theme.colors.white};
+  margin-left: -100px;
+  display: none;
+  @media (max-width: 688px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+export const ThemeToggleFooter = styled.footer<IThemeToogleFooter>`
+  display: none;
+  position: absolute;
+  bottom: 0;
+  padding: 30px 0;
+  left: 35px;
+
+  @media (max-width: 688px) {
+    display: ${(props) => (props.menuIsOpen ? "flex" : "none")};
+  }
+`;
